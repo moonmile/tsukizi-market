@@ -1,0 +1,88 @@
+﻿<Window x:Class="TsukiziSearch.Win.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TsukiziSearch.Win"
+        mc:Ignorable="d"
+        Title="築地サーチ" Height="450" Width="800">
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="開始日" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="終了日" Grid.Row="1" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="部門" Grid.Row="2" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="市場" Grid.Row="3" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="種別" Grid.Row="0" Grid.Column="2" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="品名" Grid.Row="2" Grid.Column="2" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="販売方法" Grid.Row="3" Grid.Column="2" TextAlignment="Right" Margin="4"/>
+        <TextBlock Text="集計方法" Grid.Row="4" Grid.Column="2" TextAlignment="Right" Margin="4"/>
+        <DatePicker Grid.Column="1" SelectedDate="{Binding StartDate}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding EndDate}" />
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" >
+            <RadioButton Content="水産" IsChecked="{Binding IsSectionFish}" />
+            <RadioButton Content="青果" IsChecked="{Binding IsSectionVegetable}" />
+        </StackPanel>
+        <ComboBox Grid.Column="1" Grid.Row="3" Margin="2" 
+                  ItemsSource="{Binding MarketItems}" SelectedItem="{Binding MarketItem}" />
+        <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" >
+            <CheckBox Content="すべて" IsChecked="{Binding IsKindAll}" />
+            <CheckBox Content="大物" IsChecked="{Binding IsKindBig}" />
+            <CheckBox Content="鮮魚" IsChecked="{Binding IsKindFresh}" />
+            <CheckBox Content="活魚" IsChecked="{Binding IsKindLive}" />
+            <CheckBox Content="冷凍" IsChecked="{Binding IsKindFrozen}" />
+            <CheckBox Content="塩干加工" IsChecked="{Binding IsKindProcessing}" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal" >
+            <CheckBox Content="野菜" IsChecked="{Binding IsKindVegitable}" />
+            <CheckBox Content="果実" IsChecked="{Binding IsKindFruits}" />
+        </StackPanel>
+
+        <ComboBox Grid.Column="3" Grid.Row="2" Margin="2"
+                  ItemsSource="{Binding NameItems}" SelectedItem="{Binding NameItem}" />
+        <StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal" >
+            <RadioButton Content="すべて" IsChecked="{Binding IsMethodAll}" />
+            <RadioButton Content="せり" IsChecked="{Binding IsMethodSeri}" />
+            <RadioButton Content="相対" IsChecked="{Binding IsMethodSoutai}" />
+            <RadioButton Content="第三者" IsChecked="{Binding IsMethodOther}" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="4" Orientation="Horizontal" >
+            <RadioButton Content="小計" IsChecked="{Binding IsCalcSummary}" />
+            <RadioButton Content="個別" IsChecked="{Binding IsCalcDetail}" />
+        </StackPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding Message}" Grid.ColumnSpan="4"/>
+        <Button Grid.Column="3" Grid.Row="5" Content="検索" Margin="2"
+                Click="clickSearch" Width="120" HorizontalAlignment="Right" />
+
+        <DataGrid Grid.Row="6" Grid.ColumnSpan="4" Margin="4" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  ItemsSource="{Binding Items}"
+                  HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="日付" Width="80" Binding="{Binding Date, StringFormat='yyyy/MM/dd'}"/>
+                <DataGridTextColumn Header="市場" Width="40" Binding="{Binding Market}"/>
+                <DataGridTextColumn Header="種別" Width="60" Binding="{Binding Kind}"/>
+                <DataGridTextColumn Header="品名" Width="100" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="販売方法" Width="80" Binding="{Binding Method}"/>
+                <DataGridTextColumn Header="販売量(キロ単位)" Width="100" Binding="{Binding Weight}" ElementStyle="{StaticResource HRight}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</Window>
