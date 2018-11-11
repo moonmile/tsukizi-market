@@ -259,8 +259,8 @@ namespace TsukiziSearch.Win.VM
         public async Task Search()
         {
             var client = new DocumentClient(new Uri(endpoint), apiKey);
-            await client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(databaseId));
-            await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId));
+            // await client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(databaseId));
+            // await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId));
 
             var query = client.CreateDocumentQuery<Sale>(
                             UriFactory.CreateDocumentCollectionUri(databaseId, collectionId),

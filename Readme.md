@@ -12,6 +12,9 @@
 
 ![](images/sample2.jpg)
 
+- API key は読み取り専用のものです。Azure cosoms DB のアクセス流用に応じて制限することがあります。
+- 整形済みの5年間のCSV形式のデータは <https://1drv.ms/u/s!AmXmBbuizQkXgpUYeqUVYd7WhAl4uw> にあるので活用してください。
+
 
 # Author 
 
