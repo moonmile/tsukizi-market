@@ -133,7 +133,7 @@ let uploadcsv (sr:System.IO.StreamReader) =
                     Method= a.[5], 
                     Weight= Double.Parse(a.[6]) )
         client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), data).Result |> ignore 
-        printfn "%d %s" i (data.Date.ToString())
+        // printfn "%d %s" i (data.Date.ToString())
         i <- i + 1
     printfn "%d 件登録しました" i
     ()
