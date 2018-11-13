@@ -68,6 +68,22 @@
         <Button Grid.Column="3" Grid.Row="5" Content="検索" Margin="2"
                 Click="clickSearch" Width="120" HorizontalAlignment="Right" />
 
+        <!--
+        <ListView Grid.Row="6" Grid.ColumnSpan="4" Margin="4"
+                  ItemsSource="{Binding Items}"
+                  >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="日付" Width="80" DisplayMemberBinding="{Binding Date,StringFormat='yyyy/MM/dd'}" />
+                    <GridViewColumn Header="市場" Width="40" DisplayMemberBinding="{Binding Market}" />
+                    <GridViewColumn Header="種別" Width="60" DisplayMemberBinding="{Binding Kind}" />
+                    <GridViewColumn Header="品名" Width="100" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="販売方法" Width="80" DisplayMemberBinding="{Binding Method}" />
+                    <GridViewColumn Header="販売量(キロ単位)" Width="100" DisplayMemberBinding="{Binding Weight}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        -->
         <DataGrid Grid.Row="6" Grid.ColumnSpan="4" Margin="4" 
                   AutoGenerateColumns="False" IsReadOnly="True"
                   ItemsSource="{Binding Items}"
@@ -82,7 +98,5 @@
                 <DataGridTextColumn Header="販売量(キロ単位)" Width="100" Binding="{Binding Weight}" ElementStyle="{StaticResource HRight}"/>
             </DataGrid.Columns>
         </DataGrid>
-
-
     </Grid>
 </Window>

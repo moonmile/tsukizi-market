@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "tsukizidata": {
+      "commandName": "Project",
+      "commandLineArgs": " put sei 20181110"
+    }
+  }
+}
