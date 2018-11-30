@@ -138,7 +138,7 @@ let uploadcsv (sr:System.IO.StreamReader) =
     printfn "%d 件登録しました" i
     ()
 
-let dataputcsv (csv:string) =
+let dataputcsv (sec:string) (csv:string) =
     // 1. CSVファイルを開く
     let sr = new System.IO.StreamReader( csv )
     // 2. 最初の行を読み込み、日付を取得
@@ -148,7 +148,7 @@ let dataputcsv (csv:string) =
     let query = client.CreateDocumentQuery<Sale>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId),
                     new FeedOptions( MaxItemCount = new Nullable<int>( -1 )))
-                    .Where( fun t -> t.Date = date )
+                    .Where( fun t -> t.Date = date && t.Section = sec )
                     .AsDocumentQuery()
     if query.HasMoreResults = true && query.ExecuteNextAsync<Sale>().Result.Count > 0 then
         // 3.1 マッチすればおしまい
@@ -164,7 +164,7 @@ let dataputcsv (csv:string) =
 /// CSV形式データをアップロード
 let dataput (sec:string) (date:string) =
     let csv = String.Format("{0}_{1}.csv", sec, date)
-    dataputcsv csv
+    dataputcsv sec csv
     
 
 
@@ -214,7 +214,7 @@ let main argv =
                     ()
             | "put"  -> 
                     if argv.Length = 2 then
-                        dataputcsv argv.[1]
+                        dataputcsv (argv.[1].Substring(0,3)) argv.[1]
                     else
                         dataput argv.[1] argv.[2]
                     ()
