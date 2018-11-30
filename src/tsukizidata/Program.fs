@@ -145,10 +145,12 @@ let dataputcsv (sec:string) (csv:string) =
     let date = DateTime.Parse(sr.ReadLine().Split(",").[0])
     // 3. Azure cosmos DB で検索
     let client = new DocumentClient( new Uri(Endpoint), Key )
+    let section = if sec = "sui" then "水産" else "青果"
     let query = client.CreateDocumentQuery<Sale>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId),
                     new FeedOptions( MaxItemCount = new Nullable<int>( -1 )))
-                    .Where( fun t -> t.Date = date && t.Section = sec )
+                    .Where( fun t -> t.Date = date )
+                    .Where( fun t -> t.Section = section )
                     .AsDocumentQuery()
     if query.HasMoreResults = true && query.ExecuteNextAsync<Sale>().Result.Count > 0 then
         // 3.1 マッチすればおしまい
@@ -176,10 +178,12 @@ let datadel (sec:string) (date:string) =
                 date.Substring(4,2), 
                 date.Substring(6,2)))
     let client = new DocumentClient( new Uri(Endpoint), Key )
+    let section = if sec = "sui" then "水産" else "青果"
     let query = client.CreateDocumentQuery<Sale>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId),
                     new FeedOptions( MaxItemCount = new Nullable<int>( -1 )))
                     .Where( fun t -> t.Date = date )
+                    .Where( fun t -> t.Section = section )
                     .AsDocumentQuery()
     let mutable i = 0
     while query.HasMoreResults do
